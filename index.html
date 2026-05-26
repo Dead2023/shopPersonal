@@ -15,29 +15,50 @@
 
     <!-- 1. HEADER SECTION -->
     <header>
-        <h1>Welcome to ShopPersonal</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#cart">Cart</a>
-        </nav>
+        <div class="top-bar">
+            <h1>ShopPersonal</h1>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#products-section">Products</a>
+                <a href="#search-section">Search</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- 2. MAIN CONTENT AREA -->
     <main>
-        <!-- Interactive Form Section -->
+        <section class="hero" id="home">
+            <div class="hero-copy">
+                <span class="eyebrow">Your daily essentials</span>
+                <h2 id="hero-headline">Discover products crafted for every moment.</h2>
+                <p>ShopPersonal is your easy, modern storefront for style, home, beauty, and tech. Browse curated products and find a favorite today.</p>
+                <a href="#products-section" class="btn primary">Browse collection</a>
+            </div>
+            <div class="hero-visual">
+                <span>Fresh deals, new arrivals, and fast checkout.</span>
+            </div>
+        </section>
+
         <section id="search-section">
-            <h2>Find Products</h2>
-            <form id="contact-form">
-                <input type="text" id="search-input" placeholder="Type a product name...">
-                <button type="submit" id="submit-btn">Search</button>
+            <div class="section-heading">
+                <div>
+                    <h3>Search the shop</h3>
+                    <p class="section-description">Type a product name or category to filter the collection.</p>
+                </div>
+            </div>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Search for shirts, candles, sneakers..." aria-label="Search products">
+                <button type="submit" class="btn primary" id="search-btn">Search</button>
             </form>
         </section>
 
-        <!-- Dynamic Output Container (Where JavaScript inserts data) -->
         <section id="products-section">
-            <h2>Our Collection</h2>
-            <div class="output-container">
+            <div class="section-heading">
+                <div>
+                    <h3>Featured products</h3>
+                    <p class="section-description">Handpicked items to help you shop with confidence.</p>
+                </div>
+            </div>
+            <div class="products-grid">
                 <p>Loading products...</p>
             </div>
         </section>

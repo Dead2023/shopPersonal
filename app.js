@@ -1,49 +1,98 @@
 
-//const API_URL = "https://example.com";
-let currentUser = null;
-let isDataLoaded = false;
+const products = [
+    {
+        id: 1,
+        name: 'Everyday Knit Sweater',
+        category: 'Fashion',
+        price: '$49',
+        description: 'A soft, breathable sweater you can wear every season.',
+    },
+    {
+        id: 2,
+        name: 'Aromatherapy Candle Set',
+        category: 'Home',
+        price: '$29',
+        description: 'Warm vanilla and citrus candles for calm evenings.',
+    },
+    {
+        id: 3,
+        name: 'Wireless Sport Earbuds',
+        category: 'Tech',
+        price: '$79',
+        description: 'Lightweight and sweat-resistant earbuds for active days.',
+    },
+    {
+        id: 4,
+        name: 'Organic Lip Balm Trio',
+        category: 'Beauty',
+        price: '$19',
+        description: 'Hydrating lip balms with mint, berry, and coconut.',
+    },
+    {
+        id: 5,
+        name: 'Minimal Desk Organizer',
+        category: 'Home',
+        price: '$34',
+        description: 'Keep your workspace neat with a clean, modular organizer.',
+    },
+    {
+        id: 6,
+        name: 'Everyday Canvas Sneakers',
+        category: 'Fashion',
+        price: '$59',
+        description: 'Comfortable canvas sneakers made for daily wear.',
+    },
+];
 
-
-const formElement = document.querySelector('#contact-form');
-const submitButton = document.querySelector('#submit-btn');
-const outputDisplay = document.querySelector('.output-container');
+const formElement = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-input');
+const productsGrid = document.querySelector('.products-grid');
 
 document.addEventListener('DOMContentLoaded', initializeApp);
 formElement.addEventListener('submit', handleFormSubmit);
-submitButton.addEventListener('click', toggleLoadingState);
-
 
 function initializeApp() {
-    console.log("App loaded. Fetching data...");
-    fetchData();
+    updateUI(products);
 }
 
 function handleFormSubmit(event) {
-    event.preventDefault(); // Stop page refresh
-    const userInput = formElement.value;
-    processUserInput(userInput);
-}
+    event.preventDefault();
+    const query = searchInput.value.trim().toLowerCase();
+    const filteredProducts = products.filter((product) => {
+        return (
+            product.name.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query)
+        );
+    });
 
-async function fetchData() {
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        updateUI(data);
-    } catch (error) {
-        showError(error);
+    if (!query) {
+        updateUI(products);
+        return;
     }
-}
 
-function processUserInput(input) {
-    // Sanitize, validate, or format text
-    return input.trim().toLowerCase();
-}
+    if (filteredProducts.length === 0) {
+        showError('No products matched your search. Try a different keyword.');
+        return;
+    }
 
+    updateUI(filteredProducts);
+}
 
 function updateUI(data) {
-    outputDisplay.textContent = `Welcome back, ${data.name}!`;
+    productsGrid.innerHTML = data
+        .map(
+            (product) => `
+            <article class="product-card">
+                <span class="product-badge">${product.category}</span>
+                <h4>${product.name}</h4>
+                <p>${product.description}</p>
+                <div class="product-price">${product.price}</div>
+            </article>
+        `
+        )
+        .join('');
 }
 
 function showError(message) {
-    outputDisplay.innerHTML = `<p class="error">${message}</p>`;
+    productsGrid.innerHTML = `<p class="error">${message}</p>`;
 }
